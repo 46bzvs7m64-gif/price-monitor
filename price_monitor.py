@@ -148,17 +148,23 @@ def write_html(rows, today):
                    f"<td style='color:{'#e03636' if d<0 else '#1aad4a' if d>0 else '#888'}'>{dtxt}</td>"
                    f"<td style='color:{color}'>{tip}</td></tr>")
     html = f"""<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>竞品价格监控周报</title><style>
 body{{font-family:"Microsoft YaHei";background:#f4f5f7;padding:24px;color:#222}}
 .box{{max-width:860px;margin:auto;background:#fff;border-radius:12px;padding:28px;box-shadow:0 1px 4px rgba(0,0,0,.08)}}
 h1{{font-size:19px;margin-bottom:4px}}.s{{color:#999;font-size:12px;margin-bottom:18px}}
-table{{width:100%;border-collapse:collapse;font-size:13.5px}}
+.tw{{overflow-x:auto;-webkit-overflow-scrolling:touch}}
+table{{width:100%;min-width:520px;border-collapse:collapse;font-size:13.5px}}
 th,td{{padding:11px 8px;border-bottom:1px solid #f0f0f0;text-align:right}}
 th{{background:#fafafa;color:#888;font-weight:400}}
+.back{{display:inline-block;margin-top:18px;color:#b30000;font-size:13px;text-decoration:none}}
+@media(max-width:560px){{body{{padding:14px 8px}}.box{{padding:18px 14px}}}}
 </style></head><body><div class="box">
 <h1>跑鞋品类竞品价格监控周报</h1><div class="s">报告日期 {today} · 数据管道：采集→解析→历史库→自动报告（演示数据）</div>
-<table><thead><tr><th style="text-align:left">商品</th><th>现价</th><th>上次价</th><th>环比</th><th>策略提示</th></tr></thead>
-<tbody>{''.join(trs)}</tbody></table></div></body></html>"""
+<div class="tw"><table><thead><tr><th style="text-align:left">商品</th><th>现价</th><th>上次价</th><th>环比</th><th>策略提示</th></tr></thead>
+<tbody>{''.join(trs)}</tbody></table></div>
+<a class="back" href="index.html">← 返回项目首页</a>
+</div></body></html>"""
     with open(os.path.join(BASE, "report.html"), "w", encoding="utf-8") as f:
         f.write(html)
 
