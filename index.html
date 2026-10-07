@@ -28,6 +28,14 @@
   td.l,th.l{text-align:left}
   .down{color:#e03636;font-weight:700}.flat{color:#999}
   .tag{display:inline-block;font-size:11.5px;background:#f0f0f0;color:#666;border-radius:4px;padding:2px 8px;margin-right:6px}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:6px}
+  .table-wrap table{min-width:560px}
+  @media(max-width:560px){
+    body{padding:18px 10px}
+    .hero{padding:22px 18px}.hero h1{font-size:19px}
+    .card{padding:18px 16px}
+    .pipe{gap:6px}.step{font-size:12px;padding:4px 11px}
+  }
 </style>
 </head>
 <body>
@@ -70,6 +78,7 @@
     <p style="margin-bottom:4px">
       <span class="tag">品类：跑鞋</span><span class="tag">监控品牌：安踏 / 迪卡侬 / 李宁</span><span class="tag">演示数据</span>
     </p>
+    <div class="table-wrap">
     <table>
       <thead><tr><th class="l">商品</th><th>现价</th><th>上次价</th><th>环比</th><th class="l">策略提示</th></tr></thead>
       <tbody>
@@ -78,6 +87,7 @@
         <tr><td class="l">李宁 赤兔 竞速训练跑鞋</td><td>¥459.0</td><td>¥499.0</td><td class="down">-8.0%</td><td class="l down">竞品降价，评估跟价/加券</td></tr>
       </tbody>
     </table>
+    </div>
     <p class="muted">页面仅展示项目能力与报告样式，数据为离线夹具演示；生产环境替换为真实商品链接或平台开放接口即可。</p>
   </div>
 </div>
