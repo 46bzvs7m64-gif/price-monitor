@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>竞品价格监控系统</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Microsoft YaHei","微软雅黑",sans-serif;background:#f4f5f7;color:#222;line-height:1.7;padding:32px 16px}
+  .wrap{max-width:880px;margin:0 auto}
+  .hero{background:linear-gradient(135deg,#8a1f1f,#b30000);color:#fff;border-radius:14px;padding:30px 32px;margin-bottom:20px}
+  .hero h1{font-size:23px;margin-bottom:8px}
+  .hero p{opacity:.92;font-size:14px}
+  .btns{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;background:#fff;color:#b30000;text-decoration:none;font-weight:700;font-size:13.5px;padding:9px 18px;border-radius:8px}
+  .btn.ghost{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.5)}
+  .card{background:#fff;border-radius:12px;padding:24px 28px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  h2{font-size:16px;color:#b30000;margin-bottom:12px;padding-left:10px;border-left:4px solid #b30000}
+  ul{padding-left:20px;font-size:14px}
+  li{margin-bottom:7px}
+  .pipe{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:13px;margin-top:6px}
+  .step{background:#fdf0f0;color:#b30000;border:1px solid #f0cccc;border-radius:20px;padding:5px 14px;font-weight:700}
+  .arr{color:#bbb;font-weight:700}
+  .muted{color:#999;font-size:12.5px;margin-top:14px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+  th,td{padding:10px 8px;border-bottom:1px solid #f0f0f0;text-align:right}
+  th{background:#fafafa;color:#888;font-weight:400}
+  td.l,th.l{text-align:left}
+  .down{color:#e03636;font-weight:700}.flat{color:#999}
+  .tag{display:inline-block;font-size:11.5px;background:#f0f0f0;color:#666;border-radius:4px;padding:2px 8px;margin-right:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>竞品价格监控系统</h1>
+    <p>面向采销 / 电商运营岗位场景：定时采集竞品商品页价格 → 沉淀历史库 → 自动对比波动并生成带跟价建议的周报。Python 标准库实现，零第三方依赖，可挂系统计划任务每日自动运行。</p>
+    <div class="btns">
+      <a class="btn" href="report.html">查看最新监控周报 →</a>
+      <a class="btn ghost" href="https://github.com/46bzvs7m64-gif/price-monitor" target="_blank">GitHub 源码</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>处理流程</h2>
+    <div class="pipe">
+      <span class="step">定时抓取商品页</span><span class="arr">→</span>
+      <span class="step">正则解析价格</span><span class="arr">→</span>
+      <span class="step">失败回退离线夹具</span><span class="arr">→</span>
+      <span class="step">写入历史库(去重)</span><span class="arr">→</span>
+      <span class="step">环比 / 7日对比</span><span class="arr">→</span>
+      <span class="step">生成 MD+HTML 周报</span>
+    </div>
+    <p class="muted">采集与分析解耦：新增监控商品只需改 products.json 配置，无需改动代码；网络异常自动兜底，保证监控任务不中断。</p>
+  </div>
+
+  <div class="card">
+    <h2>核心能力</h2>
+    <ul>
+      <li><b>价格采集：</b>urllib 请求 + 可配置正则解析，支持多 SKU 批量监控</li>
+      <li><b>历史沉淀：</b>按 SKU 保存每日价格到 JSON 历史库，同日重复运行自动去重覆盖，支持回溯任意时点价格</li>
+      <li><b>智能预警：</b>与上次价、7 日前价双重对比，降价超 5% 自动标记并输出跟价提示</li>
+      <li><b>动作导向：</b>报告不只给数字——降价提示评估跟价/加券，涨价提示维持现价抢量，平稳则持续观察</li>
+      <li><b>双格式输出：</b>同时生成 Markdown（存档/推送）与 HTML（可视化汇报）报告</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>周报样例（节选）</h2>
+    <p style="margin-bottom:4px">
+      <span class="tag">品类：跑鞋</span><span class="tag">监控品牌：安踏 / 迪卡侬 / 李宁</span><span class="tag">演示数据</span>
+    </p>
+    <table>
+      <thead><tr><th class="l">商品</th><th>现价</th><th>上次价</th><th>环比</th><th class="l">策略提示</th></tr></thead>
+      <tbody>
+        <tr><td class="l">安踏 C202 缓震跑鞋（男款）</td><td>¥399.0</td><td>¥429.0</td><td class="down">-7.0%</td><td class="l down">竞品降价，评估跟价/加券</td></tr>
+        <tr><td class="l">迪卡侬 KIPRUN 跑步鞋</td><td>¥249.9</td><td>¥249.9</td><td class="flat">+0.0%</td><td class="l flat">价格平稳，持续观察</td></tr>
+        <tr><td class="l">李宁 赤兔 竞速训练跑鞋</td><td>¥459.0</td><td>¥499.0</td><td class="down">-8.0%</td><td class="l down">竞品降价，评估跟价/加券</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">页面仅展示项目能力与报告样式，数据为离线夹具演示；生产环境替换为真实商品链接或平台开放接口即可。</p>
+  </div>
+</div>
+</body>
+</html>
